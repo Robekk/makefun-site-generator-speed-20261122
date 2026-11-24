@@ -4,12 +4,13 @@
 [![rank](https://make.fun/badge/site-generator-speed-01-run-20261122/Robekk/makefun-site-generator-speed-20261122/rank.svg)](https://make.fun/bounty/site-generator-speed-01-run-20261122/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=site-generator-speed-01-run-20261122)
 [![reward](https://make.fun/badge/site-generator-speed-01-run-20261122/Robekk/makefun-site-generator-speed-20261122/reward.svg)](https://make.fun/bounty/site-generator-speed-01-run-20261122?utm_source=github&utm_medium=readme&utm_campaign=site-generator-speed-01-run-20261122)
 
-A faster drop-in replacement for makefun-site 1.0.0: `solve.js` returns exactly the output tree
-makefun-site's build returns for every case, byte for byte, with the hot paths rebuilt — front
-matter parsed without splitting the whole source, a range-based Markdown inline renderer with no
-per-character escaping, and templates compiled to plain functions instead of a walked node tree.
-Verified identical to the reference on the practice set and on extra generated sets; about 2.7x
-less CPU than the house baseline in local runs beside it.
+A faster drop-in replacement for makefun-site 1.0.0. The engine is a native Rust addon
+(`engine.node`, source in `src/lib.rs`): `main.ts` hands it the raw cases.json text and it returns
+the answers text, parsing and building without crossing the JS boundary per case. If the addon
+cannot load on the host, `main.ts` falls back to `solve.js`, a pure-JS build of the same semantics.
+Both return exactly the output tree makefun-site's build returns for every case, byte for byte.
+Verified identical to the reference on the practice set and on 30 extra generated sets; the native
+path uses about 3.4x less CPU than the house baseline in local end-to-end runs beside it.
 
 ## Run it
 
